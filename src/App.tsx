@@ -1,22 +1,9 @@
-<<<<<<< HEAD
 import { useState, useCallback, useRef, useEffect } from 'react'
-=======
-<<<<<<< HEAD
-import { useState, useCallback, useRef, useEffect } from 'react'
-=======
-import { useState, useCallback, useRef } from 'react'
->>>>>>> c904297cc220a961688a51e77114a696c0cab63c
->>>>>>> 969773ecc47a4948f09847e7f2e914bb59d413b0
 import { Canvas } from '@react-three/fiber'
 import { Scene } from './components/Scene'
 import { InfoPanel } from './components/InfoPanel'
 import { LoadingScreen } from './components/LoadingScreen'
 import type { WasdControlsHandle } from './components/WasdControls'
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 969773ecc47a4948f09847e7f2e914bb59d413b0
-import { INTERACTIVE_OBJECTS } from './data/portfolio'
 import type { SectionKey } from './data/portfolio'
 
 function ScoreCounter({ target }: { target: number }) {
@@ -82,7 +69,7 @@ function CVOverlay({ onClose }: { onClose: () => void }) {
     <div className="cv-overlay">
       <button className="cv-overlay__close" onClick={onClose} aria-label="Cerrar">✕</button>
       <iframe
-        src="https://canva.link/wksgyac91oceg12"
+        src="https://www.canva.com/design/DAGbs_kVeSQ/9-59k8upttWAVL3KDyzFbA/view?embed"
         className="cv-overlay__frame"
         title="Currículum Ra"
         allow="fullscreen"
@@ -123,29 +110,16 @@ function BoardGalleryOverlay({ onClose, visible }: { onClose: () => void; visibl
   )
 }
 
-<<<<<<< HEAD
-=======
-=======
-import type { SectionKey } from './data/portfolio'
-
->>>>>>> c904297cc220a961688a51e77114a696c0cab63c
->>>>>>> 969773ecc47a4948f09847e7f2e914bb59d413b0
 export default function App() {
-  const [progress, setProgress]           = useState(0)
+  const [, setProgress]                    = useState(0)
   const [loaded, setLoaded]               = useState(false)
   const [activeSection, setActiveSection] = useState<SectionKey | null>(null)
   const [controlMode, setControlMode]     = useState<'orbit' | 'wasd'>('orbit')
   const [pointerLocked, setPointerLocked] = useState(false)
   const [hoveredLabel, setHoveredLabel]   = useState<{ text: string; color: string } | null>(null)
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 969773ecc47a4948f09847e7f2e914bb59d413b0
   const [zoomedBoardId, setZoomedBoardId]     = useState<string | null>(null)
   const [overlayVisible, setOverlayVisible]   = useState(false)
   const [musicPlaying, setMusicPlaying]       = useState(false)
-
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
 
   const loadedRef      = useRef(false)
   const wasdRef        = useRef<WasdControlsHandle>(null)
@@ -182,27 +156,10 @@ export default function App() {
     })
   }, [])
 
-  useEffect(() => {
-    const onMove = (e: MouseEvent) => setMousePos({ x: e.clientX, y: e.clientY })
-    window.addEventListener('mousemove', onMove)
-    return () => window.removeEventListener('mousemove', onMove)
-  }, [])
-<<<<<<< HEAD
-=======
-=======
-
-  const loadedRef = useRef(false)
-  const wasdRef   = useRef<WasdControlsHandle>(null)
->>>>>>> c904297cc220a961688a51e77114a696c0cab63c
->>>>>>> 969773ecc47a4948f09847e7f2e914bb59d413b0
 
   const handleLoaded = useCallback(() => {
     if (loadedRef.current) return
     loadedRef.current = true
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 969773ecc47a4948f09847e7f2e914bb59d413b0
     setTimeout(() => setLoaded(true), 4200)
   }, [])
 
@@ -210,27 +167,12 @@ export default function App() {
     inhibitLockRef.current = true
     document.exitPointerLock()
     document.body.style.cursor = 'auto'
-<<<<<<< HEAD
-=======
-=======
-    setTimeout(() => setLoaded(true), 600)
-  }, [])
-
-  const handleSelect = useCallback((section: SectionKey) => {
-    // Si el puntero estaba bloqueado (WASD), lo liberamos antes de abrir el panel
-    document.exitPointerLock()
->>>>>>> c904297cc220a961688a51e77114a696c0cab63c
->>>>>>> 969773ecc47a4948f09847e7f2e914bb59d413b0
     setActiveSection(section)
   }, [])
 
   const handleClose = useCallback(() => {
     setActiveSection(null)
     setHoveredLabel(null)
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 969773ecc47a4948f09847e7f2e914bb59d413b0
     if (controlModeRef.current === 'wasd') {
       wasdRef.current?.lock()
     }
@@ -266,33 +208,14 @@ export default function App() {
         setHoveredLabel(null)
       }, 20)
     }
-<<<<<<< HEAD
-=======
-=======
-  }, [])
-
-  const handleHover = useCallback((label: string | null, color: string | null) => {
-    setHoveredLabel(label && color ? { text: label, color } : null)
->>>>>>> c904297cc220a961688a51e77114a696c0cab63c
->>>>>>> 969773ecc47a4948f09847e7f2e914bb59d413b0
   }, [])
 
   const handleLockChange = useCallback((locked: boolean) => {
     setPointerLocked(locked)
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 969773ecc47a4948f09847e7f2e914bb59d413b0
     if (!locked) {
       setHoveredLabel(null)
       document.body.style.cursor = 'auto'
     }
-<<<<<<< HEAD
-=======
-=======
-    if (!locked) setHoveredLabel(null)
->>>>>>> c904297cc220a961688a51e77114a696c0cab63c
->>>>>>> 969773ecc47a4948f09847e7f2e914bb59d413b0
   }, [])
 
   const toggleMode = useCallback(() => {
@@ -312,10 +235,6 @@ export default function App() {
     <div className="app">
       {/* Loading overlay */}
       <div className={`loading-overlay ${loaded ? 'loading-overlay--hidden' : ''}`}>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 969773ecc47a4948f09847e7f2e914bb59d413b0
         <LoadingScreen />
       </div>
 
@@ -328,16 +247,6 @@ export default function App() {
         gl={{ antialias: true, powerPreference: 'high-performance' }}
         performance={{ min: 0.5 }}
       >
-<<<<<<< HEAD
-=======
-=======
-        <LoadingScreen progress={progress} />
-      </div>
-
-      {/* 3D Canvas */}
-      <Canvas camera={{ position: [0, 3, 9], fov: 55 }} shadows dpr={[1, 2]} gl={{ antialias: true }}>
->>>>>>> c904297cc220a961688a51e77114a696c0cab63c
->>>>>>> 969773ecc47a4948f09847e7f2e914bb59d413b0
         <Scene
           onSelect={handleSelect}
           onProgress={setProgress}
@@ -347,10 +256,6 @@ export default function App() {
           onLockChange={handleLockChange}
           onHover={handleHover}
           wasdRef={wasdRef}
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 969773ecc47a4948f09847e7f2e914bb59d413b0
           inhibitLockRef={inhibitLockRef}
           zoomedBoardId={zoomedBoardId}
           onBoardZoom={handleBoardZoom}
@@ -367,13 +272,6 @@ export default function App() {
 
       {/* CV overlay — tablet */}
       {zoomedBoardId === 'tablet' && <CVOverlay onClose={handleBoardClose} />}
-<<<<<<< HEAD
-=======
-=======
-        />
-      </Canvas>
->>>>>>> c904297cc220a961688a51e77114a696c0cab63c
->>>>>>> 969773ecc47a4948f09847e7f2e914bb59d413b0
 
       {/* UI overlay */}
       <div className="ui-overlay">
@@ -382,15 +280,7 @@ export default function App() {
           <div className="brand">
             <span className="brand__name">Ra</span>
             <span className="brand__sep"> · </span>
-<<<<<<< HEAD
             <span className="brand__role">3D Artist & Animator</span>
-=======
-<<<<<<< HEAD
-            <span className="brand__role">3D Artist & Animator</span>
-=======
-            <span className="brand__role">3D Artist & Developer</span>
->>>>>>> c904297cc220a961688a51e77114a696c0cab63c
->>>>>>> 969773ecc47a4948f09847e7f2e914bb59d413b0
           </div>
 
           {loaded && (
@@ -405,37 +295,13 @@ export default function App() {
           )}
         </div>
 
-<<<<<<< HEAD
         {/* Crosshair — solo en WASD bloqueado */}
-=======
-<<<<<<< HEAD
-        {/* Crosshair — solo en WASD bloqueado */}
-=======
-        {/* Crosshair + etiqueta de objeto — solo en WASD bloqueado */}
->>>>>>> c904297cc220a961688a51e77114a696c0cab63c
->>>>>>> 969773ecc47a4948f09847e7f2e914bb59d413b0
         {isWasdLocked && (
           <div className="wasd-crosshair">
             <div
               className="crosshair-dot"
               style={hoveredLabel ? { background: hoveredLabel.color, boxShadow: `0 0 10px ${hoveredLabel.color}` } : {}}
             />
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-            {hoveredLabel && (
-              <div
-                className="crosshair-label"
-                style={{ '--label-color': hoveredLabel.color } as React.CSSProperties}
-              >
-                <span className="hover-label__icon">▶</span>
-                {hoveredLabel.text}
-                <span className="crosshair-label__hint">clic para abrir</span>
-              </div>
-            )}
->>>>>>> c904297cc220a961688a51e77114a696c0cab63c
->>>>>>> 969773ecc47a4948f09847e7f2e914bb59d413b0
           </div>
         )}
 
@@ -474,14 +340,7 @@ export default function App() {
           </div>
         )}
 
-<<<<<<< HEAD
 
-=======
-<<<<<<< HEAD
-
-=======
->>>>>>> c904297cc220a961688a51e77114a696c0cab63c
->>>>>>> 969773ecc47a4948f09847e7f2e914bb59d413b0
         {loaded && isWasdLocked && (
           <div className="hint-bar hint-bar--wasd hint-bar--locked">
             <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd>
@@ -496,18 +355,9 @@ export default function App() {
         )}
       </div>
 
-<<<<<<< HEAD
       {/* Arcade screen overlay — solo cuando la experiencia está activa */}
       {activeSection === 'experience' && <ArcadeScreenOverlay />}
 
-=======
-<<<<<<< HEAD
-      {/* Arcade screen overlay — solo cuando la experiencia está activa */}
-      {activeSection === 'experience' && <ArcadeScreenOverlay />}
-
-=======
->>>>>>> c904297cc220a961688a51e77114a696c0cab63c
->>>>>>> 969773ecc47a4948f09847e7f2e914bb59d413b0
       {/* Info panel */}
       <InfoPanel section={activeSection} onClose={handleClose} />
     </div>
