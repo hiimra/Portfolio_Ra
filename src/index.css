@@ -100,6 +100,10 @@ a {
   height: 100%;
   background: linear-gradient(90deg, var(--purple), var(--cyan));
   border-radius: 99px;
+<<<<<<< HEAD
+=======
+  transition: width 0.3s ease;
+>>>>>>> c904297cc220a961688a51e77114a696c0cab63c
   box-shadow: 0 0 12px var(--cyan);
 }
 
@@ -116,6 +120,7 @@ a {
   margin-top: 4px;
 }
 
+<<<<<<< HEAD
 .loading-screen__inner {
   gap: 18px;
 }
@@ -191,6 +196,8 @@ a {
   width: calc(100% - min(740px, 95vw));
 }
 
+=======
+>>>>>>> c904297cc220a961688a51e77114a696c0cab63c
 /* ─── UI overlay (over canvas) ───────────────────────────────────────────── */
 .ui-overlay {
   position: fixed;
@@ -293,6 +300,7 @@ a {
   animation: fadeIn 0.3s ease;
 }
 
+<<<<<<< HEAD
 /* ─── Cursor tooltip (orbit mode) ───────────────────────────────────────── */
 .cursor-tooltip {
   position: fixed;
@@ -318,6 +326,8 @@ a {
   max-width: 320px;
 }
 
+=======
+>>>>>>> c904297cc220a961688a51e77114a696c0cab63c
 /* ─── WASD crosshair ─────────────────────────────────────────────────────── */
 .wasd-crosshair {
   position: fixed;
@@ -458,9 +468,14 @@ kbd {
   inset: 0;
   z-index: 19;
   background: rgba(0, 0, 0, 0.4);
+<<<<<<< HEAD
 
   animation: fadeIn 0.25s ease;
   cursor: auto;
+=======
+  backdrop-filter: blur(2px);
+  animation: fadeIn 0.25s ease;
+>>>>>>> c904297cc220a961688a51e77114a696c0cab63c
 }
 
 /* ─── Info panel ─────────────────────────────────────────────────────────── */
@@ -472,7 +487,10 @@ kbd {
   width: var(--panel-w);
   max-width: 95vw;
   z-index: 20;
+<<<<<<< HEAD
   cursor: auto;
+=======
+>>>>>>> c904297cc220a961688a51e77114a696c0cab63c
   background: var(--surface);
   backdrop-filter: blur(24px);
   border-left: 1px solid var(--cyan-border);
@@ -527,12 +545,15 @@ kbd {
   gap: 6px;
 }
 
+<<<<<<< HEAD
 .panel-header--secondary {
   margin-top: 28px;
   padding-top: 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+=======
+>>>>>>> c904297cc220a961688a51e77114a696c0cab63c
 .panel-tag {
   font-family: 'Orbitron', monospace;
   font-size: 0.65rem;
@@ -559,7 +580,10 @@ kbd {
   font-size: 0.9rem;
   line-height: 1.7;
   color: var(--text-muted);
+<<<<<<< HEAD
   white-space: pre-line;
+=======
+>>>>>>> c904297cc220a961688a51e77114a696c0cab63c
 }
 
 /* ─── Tags ───────────────────────────────────────────────────────────────── */
@@ -585,6 +609,7 @@ kbd {
   color: #c4b5fd;
 }
 
+<<<<<<< HEAD
 /* ─── Floating 3D labels ────────────────────────────────────────────────── */
 .float-label {
   font-family: 'Inter', system-ui, sans-serif;
@@ -683,6 +708,8 @@ kbd {
   font-size: 1rem;
 }
 
+=======
+>>>>>>> c904297cc220a961688a51e77114a696c0cab63c
 /* ─── Project cards ──────────────────────────────────────────────────────── */
 .project-list {
   display: flex;
@@ -719,6 +746,7 @@ kbd {
 }
 
 .project-card__link {
+<<<<<<< HEAD
   font-size: 1.3rem;
   display: inline-flex;
   align-items: center;
@@ -735,6 +763,16 @@ kbd {
 .project-card__link:hover {
   background: rgba(0, 212, 255, 0.22);
   transform: scale(1.1);
+=======
+  font-size: 1.1rem;
+  color: var(--cyan);
+  transition: transform 0.2s;
+  display: inline-block;
+}
+
+.project-card__link:hover {
+  transform: translate(2px, -2px);
+>>>>>>> c904297cc220a961688a51e77114a696c0cab63c
 }
 
 .project-card__desc {
@@ -792,6 +830,7 @@ kbd {
   margin-top: 4px;
 }
 
+<<<<<<< HEAD
 /* ─── Arcade panel ───────────────────────────────────────────────────────── */
 .info-panel--arcade {
   width: min(740px, 95vw);
@@ -1042,6 +1081,8 @@ kbd {
 
 }
 
+=======
+>>>>>>> c904297cc220a961688a51e77114a696c0cab63c
 /* ─── Contact ────────────────────────────────────────────────────────────── */
 .contact-list {
   display: flex;
@@ -1109,6 +1150,7 @@ kbd {
 ::-webkit-scrollbar { width: 4px }
 ::-webkit-scrollbar-track { background: transparent }
 ::-webkit-scrollbar-thumb { background: var(--cyan-border); border-radius: 99px }
+<<<<<<< HEAD
 
 /* ─── CV overlay (tablet) ───────────────────────────────────────────────── */
 .cv-overlay {
@@ -1346,3 +1388,5 @@ kbd {
   from { opacity: 0; transform: scale(0.92) }
   to   { opacity: 1; transform: scale(1) }
 }
+=======
+>>>>>>> c904297cc220a961688a51e77114a696c0cab63c

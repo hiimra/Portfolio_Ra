@@ -1,13 +1,20 @@
+<<<<<<< HEAD
 import { Suspense, useCallback, useEffect, useLayoutEffect, useRef, useState, type RefObject } from 'react'
 import { OrbitControls, Environment, useProgress, Html, useGLTF } from '@react-three/drei'
 import { useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
 import { RectAreaLightUniformsLib } from 'three/examples/jsm/lights/RectAreaLightUniformsLib.js'
+=======
+import { Suspense } from 'react'
+import { OrbitControls, Environment, useProgress } from '@react-three/drei'
+import { useEffect, type RefObject } from 'react'
+>>>>>>> c904297cc220a961688a51e77114a696c0cab63c
 import { Room } from './Room'
 import { InteractiveModel } from './InteractiveModel'
 import { DecorativeModel } from './DecorativeModel'
 import { Clouds } from './Clouds'
 import { WasdControls, type WasdControlsHandle } from './WasdControls'
+<<<<<<< HEAD
 import { Character } from './Character'
 import { Fred } from './Fred'
 import { Altavoces } from './Altavoces'
@@ -63,6 +70,9 @@ function CameraZoomReturn({ isZooming, onReturning }: {
   })
   return null
 }
+=======
+import { INTERACTIVE_OBJECTS, DECORATIVE_MODELS, type SectionKey } from '../data/portfolio'
+>>>>>>> c904297cc220a961688a51e77114a696c0cab63c
 
 function ProgressBridge({ onProgress, onLoaded }: { onProgress: (p: number) => void; onLoaded: () => void }) {
   const { progress, active } = useProgress()
@@ -74,6 +84,7 @@ function ProgressBridge({ onProgress, onLoaded }: { onProgress: (p: number) => v
 }
 
 interface SceneProps {
+<<<<<<< HEAD
   onSelect:         (section: SectionKey) => void
   onProgress:       (p: number) => void
   onLoaded:         () => void
@@ -89,10 +100,21 @@ interface SceneProps {
   activeSection:    SectionKey | null
   musicPlaying:     boolean
   onMusicToggle:    () => void
+=======
+  onSelect:      (section: SectionKey) => void
+  onProgress:    (p: number) => void
+  onLoaded:      () => void
+  onLockChange:  (locked: boolean) => void
+  onHover:       (label: string | null, color: string | null) => void
+  controlMode:   'orbit' | 'wasd'
+  pointerLocked: boolean
+  wasdRef:       RefObject<WasdControlsHandle | null>
+>>>>>>> c904297cc220a961688a51e77114a696c0cab63c
 }
 
 export function Scene({
   onSelect, onProgress, onLoaded, onLockChange, onHover,
+<<<<<<< HEAD
   controlMode, pointerLocked, wasdRef, inhibitLockRef,
   zoomedBoardId, onBoardZoom, panelOpen, activeSection,
   musicPlaying, onMusicToggle,
@@ -106,6 +128,11 @@ export function Scene({
 
   // Necesario para que rectAreaLight funcione con MeshStandardMaterial
   useEffect(() => { RectAreaLightUniformsLib.init() }, [])
+=======
+  controlMode, pointerLocked, wasdRef,
+}: SceneProps) {
+  const wasdLocked = controlMode === 'wasd' && pointerLocked
+>>>>>>> c904297cc220a961688a51e77114a696c0cab63c
 
   return (
     <>
@@ -113,6 +140,7 @@ export function Scene({
       <color attach="background" args={['#303575']} />
 
       <Suspense fallback={null}>
+<<<<<<< HEAD
         {/* Luz ambiental tenue — la ventana es la fuente principal */}
         <ambientLight intensity={0.35} color="#c8d8ff" />
 
@@ -148,6 +176,20 @@ export function Scene({
         <LightMarker position={[-9, 6.5, -2]} color="#ff9456 " label="spot (ventana)" />
 
         <Environment preset="apartment" resolution={128} />
+=======
+        <ambientLight intensity={0.6} />
+        <directionalLight
+          position={[4, 8, 4]} intensity={1.2} castShadow
+          shadow-mapSize={[2048, 2048]}
+          shadow-camera-near={0.1} shadow-camera-far={50}
+          shadow-camera-left={-10} shadow-camera-right={10}
+          shadow-camera-top={10}  shadow-camera-bottom={-10}
+        />
+        <pointLight position={[-4, 3, -4]} intensity={0.4} color="#a78bfa" />
+        <pointLight position={[4, 2, 4]}   intensity={0.3} color="#38bdf8" />
+
+        <Environment preset="apartment" />
+>>>>>>> c904297cc220a961688a51e77114a696c0cab63c
         <Room />
 
         {INTERACTIVE_OBJECTS.map((obj) => (
@@ -157,16 +199,20 @@ export function Scene({
             onSelect={onSelect}
             wasdLocked={wasdLocked}
             onHover={onHover}
+<<<<<<< HEAD
             isActive={activeSection === obj.section && !!obj.zoomCamOffset}
             panelOpen={panelOpen}
             sectionHovered={hoveredSection === obj.section}
             onHoverChange={handleSectionHover}
+=======
+>>>>>>> c904297cc220a961688a51e77114a696c0cab63c
           />
         ))}
         {DECORATIVE_MODELS.map((path) => (
           <DecorativeModel key={path} path={path} />
         ))}
         <Clouds />
+<<<<<<< HEAD
 
         <Character
           onSelect={onSelect}
@@ -252,3 +298,26 @@ useGLTF.preload('/tablet.glb')
 useGLTF.preload('/habitacion.glb')
 useGLTF.preload('/altavoces.glb')
 useGLTF.preload('/ra_tiping.glb')
+=======
+      </Suspense>
+
+      {controlMode === 'orbit' ? (
+        <OrbitControls
+          target={[0, 0.7, 0]}
+          minPolarAngle={0.1}
+          maxPolarAngle={Math.PI * 0.68}
+          enablePan={false}
+          maxDistance={13}
+          minDistance={1.2}
+          autoRotate
+          autoRotateSpeed={0.35}
+          enableDamping
+          dampingFactor={0.07}
+        />
+      ) : (
+        <WasdControls ref={wasdRef} onLockChange={onLockChange} />
+      )}
+    </>
+  )
+}
+>>>>>>> c904297cc220a961688a51e77114a696c0cab63c
