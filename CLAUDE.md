@@ -1,43 +1,71 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guía para Claude Code al trabajar en este repositorio.
 
-## Project Overview
+## Overview
 
-3D interactive portfolio website. A first-person/orbit-around room scene built with React Three Fiber. Visitors orbit the room and click on objects (monitor, keyboard, PC, speakers, tablet, bookshelf, Pomni plushie) to open portfolio panels.
+Portfolio 3D interactivo. Habitación en React Three Fiber donde el visitante orbita/camina y hace clic en objetos para ver el contenido del portfolio.
 
-## Commands
+## Comandos
 
 ```bash
-npm install          # install dependencies (run once)
-npm run dev          # start dev server at http://localhost:5173
-npm run build        # TypeScript check + Vite production build
-npm run preview      # preview the production build locally
+npm install          # instalar dependencias (una vez)
+npm run dev          # servidor de desarrollo → http://localhost:5173
+npm run build        # build producción (Vite)
+npm run preview      # previsualizar build
 ```
 
-## Architecture
+## Arquitectura
 
-### 3D Models (served as static files)
-All `.glb` files live in `Habitación/` and are served at the root URL via `publicDir` in `vite.config.ts`. E.g. `Habitación/monitor.glb` → `/monitor.glb`.
+### Modelos 3D
+Todos los `.glb` viven en `Habitación/` y se sirven en la URL raíz via `publicDir` en `vite.config.ts`.
+`Habitación/monitor.glb` → `/monitor.glb`
 
-### Key files
-- [src/data/portfolio.ts](src/data/portfolio.ts) — **all customizable content lives here**: bio, projects, skills, experience, contact, and which model maps to which section
-- [src/components/Scene.tsx](src/components/Scene.tsx) — lights, OrbitControls, loads all models; also bridges loading progress to the React tree
-- [src/components/InteractiveModel.tsx](src/components/InteractiveModel.tsx) — loads a single GLB, adds hover scale + `<Html>` tooltip, fires `onSelect` on click
-- [src/components/Room.tsx](src/components/Room.tsx) — loads `habitacion.glb` as the static environment
-- [src/components/InfoPanel.tsx](src/components/InfoPanel.tsx) — slide-in panel (right edge) with all portfolio section content
-- [src/components/Clouds.tsx](src/components/Clouds.tsx) — `nube_01/02/03.glb` with `useFrame` float animation
+### Archivos clave
+- `src/data/portfolio.ts` — **todo el contenido** del portfolio y configuración de objetos
+- `src/components/Scene.tsx` — luces, OrbitControls/WasdControls, monta todos los modelos, gestiona zoom de cámara
+- `src/components/InteractiveModel.tsx` — objeto clickable: anillo + aguja + etiqueta flotante + zoom
+- `src/components/TableroDibujos.tsx` — tablón (galería Arte) y tablet (CV iframe cenital)
+- `src/components/InfoPanel.tsx` — panel deslizante con todo el contenido por sección
+- `src/components/LoadingScreen.tsx` — pantalla de carga 4s con logo, barra simulada y tip
+- `src/components/Altavoces.tsx` — control de música (lofi toggle) con aguja y ♫ tachada
 
-### Interaction model
-1. `<Canvas>` (App.tsx) → `<Scene>` → individual `<InteractiveModel>` components
-2. Click on an object → `onSelect(section)` → `activeSection` state in App.tsx → `<InfoPanel>` slides in
-3. Escape key or backdrop click → closes panel
-4. Loading: `useProgress` from drei inside Canvas fires `onProgress`/`onLoaded` callbacks up to App.tsx; loading overlay fades out on completion
+### Sistema de etiquetas flotantes (agujas)
+Cada objeto interactivo tiene: anillo pulsante en el suelo → aguja vertical → etiqueta `<Html>` encima.
+- Altura de aguja: `needleHeight` en `INTERACTIVE_OBJECTS` (portfolio.ts) o `BOARD_NEEDLE_HEIGHTS`
+- Etiquetas se ocultan cuando hay panel o zoom activo (`panelOpen`, `isMeZoomed`)
+- Hover compartido por sección: teclado/ratón/torre iluminan la misma etiqueta "Habilidades"
 
-### Adding the character model
-When the character model is ready, add it to `Habitación/`, then either:
-- Add it to `DECORATIVE_MODELS` in `portfolio.ts` for a static prop
-- Add an entry to `INTERACTIVE_OBJECTS` with its own section to make it clickable
+### Modos de cámara
+- **Órbita**: `OrbitControls` con auto-rotación. Al cerrar un zoom, `CameraZoomReturn` (modo orbit) devuelve la cámara suavemente a la posición pre-zoom antes de remontar OrbitControls.
+- **WASD**: puntero bloqueado, movimiento FPS. Al cerrar un zoom, `CameraZoomReturn` (modo wasd) devuelve posición + rotación con lerp.
 
-### Customizing portfolio content
-Edit `src/data/portfolio.ts` — change `PORTFOLIO_DATA` for text content and `INTERACTIVE_OBJECTS` for object-to-section mappings.
+### Flujo de interacción
+1. Clic en objeto → `onSelect(section)` o `onBoardZoom(id)` en App.tsx
+2. Panel de info: `activeSection` → `<InfoPanel>` se desliza desde la derecha
+3. Zoom de arcade: `InteractiveModel.useFrame` mueve la cámara hacia el objeto
+4. Zoom de tablón/tablet: `TableroDibujos.useFrame` mueve la cámara hacia el modelo
+5. Zoom de tablet: vista cenital + iframe CV Canva (`/view?embed`)
+6. Cerrar → `CameraZoomReturn` restaura posición pre-zoom
+
+### Overlays HTML
+- `BoardGalleryOverlay` — siempre en DOM (`visibility:hidden` cuando inactivo) para evitar tirones
+- `CVOverlay` — iframe Canva embed, solo se monta cuando `zoomedBoardId === 'tablet'`
+- `ArcadeScreenOverlay` — overlay retro cuando `activeSection === 'experience'`
+
+## Configuración de contenido
+
+Editar `src/data/portfolio.ts`:
+- `PORTFOLIO_DATA` — textos bio, proyectos, habilidades, experiencia, contacto
+- `INTERACTIVE_OBJECTS` — objetos clickables con `needleHeight`, `zoomCamOffset`, etc.
+- `BOARD_NEEDLE_HEIGHTS` — alturas de aguja para tablón y tablet
+- `SECTION_COLORS` — color de anillo/aguja/label por sección
+
+## Reglas importantes
+
+- Los GLB SIEMPRE en `Habitación/`, nunca en `public/`
+- `useGLTF.preload()` al final de Scene.tsx para precargar todos los modelos
+- CV iframe usa URL embed de Canva (`/view?embed`), no la URL de compartir normal
+- `WasdControls.tsx` — lógica compleja de pointer lock, no tocar sin motivo
+- `vite.config.ts` — `publicDir: 'Habitación/'`, no cambiar
+- Etiquetas `<Html>` tienen `pointer-events: none` para no bloquear la escena 3D
